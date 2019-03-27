@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth.models import User
 from .models import ChangePasswordToken
 from django.utils.crypto import get_random_string
+from django.views import generic
 
 
 def is_not_auth(user):
@@ -83,3 +84,9 @@ def change_password(request, token=None):
         return redirect(reverse('login'))   # if token is wrong or not exist
 
 
+class ProfileView(generic.DetailView):
+    model = User
+    template_name = 'account/profile.py'
+
+    def get_context_data(self, **kwargs):
+        pass
