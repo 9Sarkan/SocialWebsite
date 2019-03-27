@@ -12,7 +12,7 @@ class ChangePasswordToken(models.Model):
 
 class NUser(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='nuser')
-    profile = models.ImageField(verbose_name='Profile Image')
+    profile = models.ImageField(verbose_name='Profile Image', null=True, blank=True)
     birthday = models.DateField(verbose_name='Birthday', null=True, blank=True)
     number = models.CharField(verbose_name='Phone number', max_length=16)
     bio = models.CharField(max_length=200, null=True, blank=True)
