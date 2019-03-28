@@ -1,13 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 
 
 class Post(models.Model):
     slug = models.SlugField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
-    photo = models.ImageField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    photo = models.ImageField(null=True, blank=True)
     date = models.DateTimeField(auto_created=True)
-    comment = models.CharField(null=True, blank=True, max_length=500)
+    body = HTMLField('Body')
+    title = models.CharField(max_length=200)
 
     def __str__(self):
         return 'Post {0} - user {1}'.format(self.id, self.user.username)

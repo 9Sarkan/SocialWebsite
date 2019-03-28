@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('posts/', include('posts.urls')),
+    path(r'^tinymce/', include('tinymce.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
