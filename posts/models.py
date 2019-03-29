@@ -31,14 +31,11 @@ class Post(models.Model):
     def __str__(self):
         return 'Post {0} - user {1}'.format(self.id, self.user.username)
 
-    def display_author(self, obj):
-        return obj.author.username
+    def display_author(self):
+        return self.author.username
 
-    def display_categories(self, obj):
-        return ', '.join([cat.title for cat in obj.categories.all()])
-
-    display_author.short_description = 'Author'
-    display_categories.short_description = 'Categories'
+    def display_categories(self):
+        return ', '.join([cat.title for cat in self.categories.all()])
 
 
 class Like(models.Model):

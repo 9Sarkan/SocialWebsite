@@ -15,9 +15,12 @@ export_as_json.short_description = 'export selected items as json'.title()
 
 @admin.register(Post)
 class PostAdminPanel(admin.ModelAdmin):
-    list_display = ('title', 'display_author', 'date', 'display_categories', )
-    list_filter = ('title', 'display_author', 'display_categories', )
-    search_fields = ('title', 'display_author', 'body', )
+    # list_display = ('title', 'display_author', 'date', 'display_categories', )
+    # list_filter = ('title', 'display_author', 'display_categories', )
+    # search_fields = ('title', 'display_author', 'body', )
+    list_display = ('title', 'date', )
+    list_filter = ('title', )
+    search_fields = ('title', 'body', )
     actions = [export_as_json, ]
 
 
