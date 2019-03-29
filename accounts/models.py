@@ -16,6 +16,10 @@ class NUser(models.Model):
     birthday = models.DateField(verbose_name='Birthday', null=True, blank=True)
     number = models.CharField(verbose_name='Phone number', max_length=16)
     bio = models.CharField(max_length=200, null=True, blank=True)
+    instagram = models.CharField(max_length=60, null=True, blank=True)
+    facebook = models.CharField(max_length=60, null=True, blank=True)
+    twitter = models.CharField(max_length=60, null=True, blank=True)
+    youtube = models.CharField(max_length=60, null=True, blank=True)
 
     def __str__(self):
         return self.user.email

@@ -27,3 +27,11 @@ class PostAdminPanel(admin.ModelAdmin):
 admin.site.register(PostCategory)
 admin.site.register(Tag)
 
+
+@admin.register(Comment)
+class CommentPanel(admin.ModelAdmin):
+    list_display = ['user', 'post', 'date', 'delete']
+    list_filter = ('post', 'delete', )
+    search_fields = ('post', 'user', 'body', )
+    actions = [export_as_json, ]
+
