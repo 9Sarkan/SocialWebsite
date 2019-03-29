@@ -21,7 +21,7 @@ class Tag(models.Model):
 class Post(models.Model):
     slug = models.SlugField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
-    photo = models.ImageField(null=True, blank=True)
+    photo = models.ImageField(upload_to='postsImage/')
     date = models.DateTimeField(auto_created=True)
     body = models.TextField()
     title = models.CharField(max_length=200)
