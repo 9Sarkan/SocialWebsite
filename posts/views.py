@@ -44,3 +44,10 @@ class PostView(generic.DetailView):
             c.save()
             return HttpResponseRedirect(reverse('PostView', kwargs={'slug': self.kwargs['slug']}))
 
+
+class MainPage(generic.ListView):
+    model = Post
+    template_name = 'blog/index.html'
+    paginate_by = 8
+
+    def get_context_data(self, *, object_list=None, **kwargs):

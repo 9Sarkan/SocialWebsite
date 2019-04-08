@@ -24,6 +24,7 @@ class Post(models.Model):
     photo = models.ImageField(upload_to='postsImage/')
     date = models.DateTimeField(auto_created=True)
     body = models.TextField()
+    description = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     categories = models.ManyToManyField(PostCategory, help_text="Please enter post categories", related_name='posts')
     tags = models.ManyToManyField(Tag, help_text='Please select or just created tags related to this post.')
