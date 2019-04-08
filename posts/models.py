@@ -26,8 +26,11 @@ class Post(models.Model):
     body = models.TextField()
     description = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
-    categories = models.ManyToManyField(PostCategory, help_text="Please enter post categories", related_name='posts')
+    categories = models.ManyToManyField(PostCategory, help_text="Please enter post categories",
+                                        related_name='posts')
     tags = models.ManyToManyField(Tag, help_text='Please select or just created tags related to this post.')
+    header = models.BooleanField(help_text='Display in site main page', verbose_name='Show in Header',
+                                 default=False)
 
     def __str__(self):
         return 'Post {0} - user {1}'.format(self.id, self.author.username)

@@ -1,6 +1,11 @@
 {% extends 'blog/sharedPage.html' %}
 {% load static %}
 {% block title %} Home Page {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"> </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+{% endblock %}
 {% block body %}
   <section class="site-section pt-5 pb-5">
     <div class="container">
@@ -63,18 +68,20 @@
               <nav aria-label="Page navigation" class="text-center">
                 <ul class="pagination" id="pagination">
                   {% if page_obj.has_previous %}<li class="page-item  active"><a class="page-link" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">&lt;</a></li>{% endif %}
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">4</a></li>
-                  <li class="page-item"><a class="page-link" href="#">5</a></li>
+                  <!--<li class="page-item"><a class="page-link" href="#">1</a></li>-->
                   <script>
-                    var i = {{ page_obj.paginator.num_pages }};
+                    var i = {{ page_obj.paginator.num_pages | safe }};
                     var ul = document.getElementById("pagination");
+                    var page = "?page=";
                     for(j = 0; j <= i; j++){
                       var child = document.createElement("li");
-
-                      i.appendChild(child);
+                      child.setAttribute("class", "page-item");
+                      var childa = document.createElement("a");
+                      childa.setAttribute("class", "page-link");
+                      childa.setAttribute("href", page.concat(j));
+                      childa.innerHTML = j;
+                      child.appendChild(childa);
+                      ul.appendChild(child);
                     }
                   </script>
                   {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}">&gt;</a></li>
@@ -90,12 +97,26 @@
 
         <div class="col-md-12 col-lg-4 sidebar">
           <div class="sidebar-box search-form-wrap">
-            <form action="#" class="search-form" method="POST">
+            <form action="{% url 'search' %}" class="search-form" method="GET">
               {% csrf_token %}
               <div class="form-group">
                 <span class="icon fa fa-search"></span>
-                <input name="search" type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
+                <input name="search_txt" type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
+                <button class="form-control" value="search" type="submit"/>
               </div>
+              <script>
+                $(document).ready(function(){
+                  $("#txtSearch").autocomplete({
+                      source: "/ajax_calls/search/",
+                      minLength: 2,
+                      open: function(){
+                          setTimeout(function () {
+                              $('.ui-autocomplete').css('z-index', 99);
+                          }, 0);
+                      }
+                  });
+                });
+              </script>
             </form>
           </div>
           <!-- END sidebar-box -->

@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
 from . import settings
+from posts.views import autocompleteModel
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('posts/', include('posts.urls')),
+    path(r'^ajax_calls/search/', autocompleteModel),
     re_path(r'^tinymce/', include('tinymce.urls')),
 ]
 
